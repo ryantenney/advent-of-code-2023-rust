@@ -34,7 +34,7 @@ use std::time::{Duration, Instant};
 
 trait AocDay {
     fn day(&self) -> u8;
-    fn init(&mut self, _input: &Vec<String>) -> bool;
+    fn init(&mut self, input: &Vec<String>) -> bool;
     fn part1(&self) -> String;
     fn part2(&self) -> String;
 }
