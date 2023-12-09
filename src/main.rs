@@ -35,9 +35,20 @@ use datetime::convenience::Today;
 use datetime::{DatePiece, LocalDate, Month};
 
 trait AocDay {
-    fn day(&self) -> u8;
-    fn init(&mut self, input: &Vec<String>) -> bool;
+    fn day(&self) -> u8 {
+        self.info().0
+    }
+
+    fn info(&self) -> (u8, String) {
+        (0, String::new())
+    }
+
+    fn init(&mut self, _input: &Vec<String>) -> bool {
+        false
+    }
+
     fn part1(&self) -> String;
+
     fn part2(&self) -> String;
 }
 
@@ -104,7 +115,13 @@ fn main() {
             continue
         }
 
-        println!("Day {}", day.day());
+        let (day_number, day_name) = day.info();
+        if day_name.is_empty() {
+            println!("Day {}", day_number);
+        } else {
+            println!("Day {}: {}", day_number, day_name);
+        }
+
         println!("  Init  : ({:?})", init_duration);
 
         let (part1, part1_duration) = timer.time_with_return(|| day.part1());

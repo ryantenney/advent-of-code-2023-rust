@@ -15,8 +15,8 @@ impl Day1 {
 
 impl AocDay for Day1 {
 
-    fn day(&self) -> u8 {
-        1
+    fn info(&self) -> (u8, String) {
+        (1, "Trebuchet?!".to_string())
     }
 
     fn init(&mut self, input: &Vec<String>) -> bool {

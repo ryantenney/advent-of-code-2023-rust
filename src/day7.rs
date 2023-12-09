@@ -20,8 +20,8 @@ impl Day7 {
 
 impl AocDay for Day7 {
 
-    fn day(&self) -> u8 {
-        7
+    fn info(&self) -> (u8, String) {
+        (7, "Camel Cards".to_string())
     }
 
     fn init(&mut self, input: &Vec<String>) -> bool {
@@ -71,7 +71,6 @@ impl AocDay for Day7 {
         let mut score = 0;
         for x in hands {
             rank += 1;
-            println!("{:?} score={}, bid={}, rank={}", x, x.score(), x.bid, rank);
             score += x.bid * rank;
         }
 

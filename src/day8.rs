@@ -20,8 +20,8 @@ impl Day8 {
 
 impl AocDay for Day8 {
 
-    fn day(&self) -> u8 {
-        8
+    fn info(&self) -> (u8, String) {
+        (8, "Haunted Wasteland".to_string())
     }
 
     fn init(&mut self, input: &Vec<String>) -> bool {

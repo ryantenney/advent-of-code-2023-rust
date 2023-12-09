@@ -17,8 +17,8 @@ impl Day2 {
 
 impl AocDay for Day2 {
 
-    fn day(&self) -> u8 {
-        2
+    fn info(&self) -> (u8, String) {
+        (2, "Cube Conundrum".to_string())
     }
 
     fn init(&mut self, input: &Vec<String>) -> bool {
