@@ -31,6 +31,8 @@ use std::env;
 use std::fs;
 use std::str;
 use std::time::{Duration, Instant};
+use datetime::convenience::Today;
+use datetime::{DatePiece, LocalDate, Month};
 
 trait AocDay {
     fn day(&self) -> u8;
@@ -49,6 +51,7 @@ fn read_lines(name: String) -> Result<Vec<String>, std::io::Error> {
 
 fn main() {
     let run_day: Option<u8> = None;
+    let end_day = end_day();
 
     let mut days: Vec<Box<dyn AocDay>> = Vec::new();
     days.push(Box::new(day1::Day1::new()));
@@ -83,6 +86,10 @@ fn main() {
             if run_day != day.day() {
                 continue;
             }
+        } else if let Some(end_day) = end_day {
+            if end_day < day.day() {
+                continue;
+            }
         }
 
         let input = read_lines(format!("advent-of-code-2023-rust/src/day{}.txt", day.day()));
@@ -115,6 +122,15 @@ fn print_part(part_number: u8, solution: String, duration: Duration) {
         println!("  Part {}: ({:?})\n    {}", part_number, duration, solution.replace('\n', "\n    "));
     } else {
         println!("  Part {}: {} ({:?})", part_number, solution, duration);
+    }
+}
+
+fn end_day() -> Option<u8> {
+    let date = LocalDate::today();
+    if date.year() == 2023 && date.month() == Month::December {
+        Some(date.day() as u8)
+    } else {
+        None
     }
 }
 
