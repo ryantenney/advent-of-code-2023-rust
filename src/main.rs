@@ -29,10 +29,15 @@ mod day25;
 
 use std::env;
 use std::fs;
+use std::path::{Path, PathBuf};
 use std::str;
 use std::time::{Duration, Instant};
+use anyhow::anyhow;
 use datetime::convenience::Today;
 use datetime::{DatePiece, LocalDate, Month};
+use reqwest::blocking::Client;
+
+const RUN_DAY: Option<u8> = None;
 
 trait AocDay {
     fn day(&self) -> u8 {
@@ -60,8 +65,42 @@ fn read_lines(name: String) -> Result<Vec<String>, std::io::Error> {
     Ok(contents.lines().map(str::to_string).collect())
 }
 
+fn read_session_token() -> Result<String, anyhow::Error> {
+    let mut path = env::current_dir()?;
+    path.push(".session_token");
+
+    let contents = fs::read_to_string(path)?;
+    Ok(contents.trim().to_string())
+}
+
+fn read_input(day: u8) -> Result<Vec<String>, anyhow::Error> {
+    let mut path = env::current_dir()?;
+    path.push(format!("src/day{day}.txt"));
+
+    if !path.exists() {
+        return download_input(day, path);
+    }
+
+    let contents = fs::read_to_string(path)?;
+    Ok(contents.lines().map(str::to_string).collect())
+}
+
+fn download_input<P: AsRef<Path>>(day: u8, path: P) -> Result<Vec<String>, anyhow::Error> {
+    let session_token = read_session_token()?;
+    let url = format!("https://adventofcode.com/2023/day/{}/input", day);
+    let input = Client::new().get(&url)
+        .header("Cookie", format!("session={session_token}"))
+        .header("User-Agent", "github.com/abc/advent-of-code-2023 by abc@xyz.com")
+        .send()
+        .unwrap()
+        .text()?;
+
+    fs::write(path, &input)?;
+
+    Ok(input.lines().map(str::to_string).collect())
+}
+
 fn main() {
-    let run_day: Option<u8> = None;
     let end_day = end_day();
 
     let mut days: Vec<Box<dyn AocDay>> = Vec::new();
@@ -93,7 +132,7 @@ fn main() {
 
     let mut timer = Timer::new();
     for day in days.iter_mut() {
-        if let Some(run_day) = run_day {
+        if let Some(run_day) = RUN_DAY {
             if run_day != day.day() {
                 continue;
             }
@@ -103,9 +142,11 @@ fn main() {
             }
         }
 
-        let input = read_lines(format!("advent-of-code-2023-rust/src/day{}.txt", day.day()));
+        let input = read_input(day.day());
         if input.is_err() {
             println!("Day {}: input not found", day.day());
+
+
             continue;
         }
 

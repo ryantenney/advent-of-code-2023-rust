@@ -15,3 +15,5 @@ Cargo.lock
 
 *.iml
 .idea/
+
+.session_token
