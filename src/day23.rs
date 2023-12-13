@@ -1,4 +1,4 @@
-use crate::AocDay;
+use crate::aocday::AocDay;
 
 #[derive(Default)]
 pub struct Day23 {

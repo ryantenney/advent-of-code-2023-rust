@@ -1,6 +1,6 @@
 use std::collections::VecDeque;
 use std::str::FromStr;
-use crate::AocDay;
+use crate::aocday::AocDay;
 
 #[derive(Default)]
 pub struct Day9 {

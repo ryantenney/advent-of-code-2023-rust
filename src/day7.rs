@@ -3,7 +3,7 @@ use std::cmp::Ordering::Equal;
 use std::collections::HashMap;
 use std::fmt::{Debug, Display, Formatter};
 use std::str::FromStr;
-use crate::AocDay;
+use crate::aocday::AocDay;
 
 #[derive(Default)]
 pub struct Day7 {
@@ -338,7 +338,6 @@ mod tests {
         let one = "KK677 28".parse::<Hand>().unwrap();
         let two = "KTJJT 220".parse::<Hand>().unwrap();
         let ordering = one.rank(&two);
-        dbg!(ordering);
     }
 
     fn init(input: &str) -> Day7 {

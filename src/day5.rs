@@ -2,7 +2,7 @@ use std::collections::HashMap;
 use std::str::FromStr;
 use anyhow::anyhow;
 use itertools::Itertools;
-use crate::AocDay;
+use crate::aocday::AocDay;
 
 #[derive(Default)]
 pub struct Day5 {

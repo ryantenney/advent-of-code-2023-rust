@@ -2,7 +2,7 @@ use std::collections::hash_map::Entry::Occupied;
 use std::collections::HashMap;
 use std::fmt::{Display, Formatter};
 use std::str::FromStr;
-use crate::AocDay;
+use crate::aocday::AocDay;
 
 #[derive(Default)]
 pub struct Day8 {
