@@ -30,6 +30,7 @@ mod timer;
 mod util;
 mod aocday;
 mod days;
+mod math;
 
 use std::env;
 use std::fs;
